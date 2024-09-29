@@ -28,6 +28,19 @@ fn main(){
     let sum = user_in_num1_int + user_in_num2_int; //perform addition calculation
     println!("The sum is {}", sum);
 
+    //Example of Statement and Expression
+    let x = { //inside {} must be an expression that returns a value or type
+        let y = 20; //statement
+        y + 1 //expression the outer statement is equal to (notice no ;)
+    };
 
-    
+    println!("The statement/expression block returns: {}", x);
+
+    println!("5 - 4 is {}", subtract_numbers(5, 4));
+}
+
+fn subtract_numbers(x: i32, y: i32) -> i32{
+    let difference = x - y;
+    difference //doesnt need return but can have it
+               //e.ge., return difference
 }
