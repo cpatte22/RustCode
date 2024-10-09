@@ -7,7 +7,7 @@ int main() {
 */
 void cFoo(){
 
-   //Example of I/O in C
+   //Example of I/O in C ---NOT WORKING---
    int num1, num2;
    scanf("Enter num1 (C): %d", num1);
    scanf("Enter num2 (C): %d", num2);
