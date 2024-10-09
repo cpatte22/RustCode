@@ -1,49 +1,44 @@
 #include <stdio.h>
 #include <string.h>
-/*
-int main() {
-   printf("This is the C program");
-   return 0;
-}
-*/
 
 //Function to encrypt a string
-void encrypt(char* str, int shift) 
-{
+void encrypt(char* str, int shift) {
     int i = 0;
     while (str[i] != '\0') {
-        //Shift each character by the shift value
+        //shift each character by the shift value
         str[i] = str[i] + shift;
         i++;
     }
 }
 
-void cFoo(){
+void cFoo() {
+    printf("This is the C program\n");
 
-   printf("This is the C Program");
-   //Example of I/O in C ---NOT WORKING---
-   int num1, num2;
-   scanf("Enter num1 (C): %d", num1);
-   scanf("Enter num2 (C): %d", num2);
+    //Example of I/O in C ---WORKING---
+    int num1, num2;
+    printf("Enter num1 (C): ");
+    scanf("%d", &num1);
+    printf("Enter num2 (C): ");
+    scanf("%d", &num2);
+    int sum = num1 + num2;
+    printf("The sum of the numbers is %d\n", sum);
+    //-------------------------------------
 
-   int sum = num1 + num2;
-   printf("The sume of the numbers is %d", sum);
-   //-------------------------------------
+    char str[100];
+    int shift;
 
-   char str[100];
-   int shift;
-
-   printf("Enter a string to encrypt: ");
-   fgets(str, sizeof(str), stdin);
+    //get string input from user
+    printf("Enter a string to encrypt: ");
+    getchar(); // To consume the leftover newline character from previous input
+    fgets(str, sizeof(str), stdin);
 
     //remove newline character from fgets input
-   str[strcspn(str, "\n")] = '\0';
+    str[strcspn(str, "\n")] = '\0';
 
     //get shift value
-   printf("Enter shift value (e.g., 1): ");
-   scanf("%d", &shift);
+    printf("Enter shift value: ");
+    scanf("%d", &shift);
 
-   encrypt(str, shift);
-   printf("Encrypted string: %s\n", str);   
+    encrypt(str, shift);
+    printf("Encrypted string: %s\n", str);
 }
-
