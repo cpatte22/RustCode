@@ -6,7 +6,6 @@ extern "C" {
 }
 
 fn main() {
-    println!("Calling C code from Rust...");
     
     //Testing basic I/O
     println!("Enter two numbers to add\nnum_1 (Rust): ");
@@ -24,7 +23,8 @@ fn main() {
     
     let sum = user_in_num1_int + user_in_num2_int; //perform addition calculation
     println!("The sum is {}", sum);
-
+    
+    println!("Calling C code from Rust...");
     //call the C function
     unsafe {
         cFoo();
