@@ -1,13 +1,43 @@
-//use std::io;
+use std::io;
 use sha2::{Sha256, Digest};
-use std::io::{self, Write};
+use std::hash::{DefaultHasher, Hash, Hasher};
+//use std::io::{self, Write};
 
 extern "C" {
     fn cFoo();
 }
 
+//Items for Hashing
+#[derive(Hash)]
+struct Player{
+    username: String,
+    id: u32,
+    age: i32,
+}
+
+
+
+
 fn main() {
+
+    //Hashing in Rust-------------------------------
+    let player_1 = Player{
+        username: "xxXMonsterXxx".to_string(),
+        id: 1234567,
+        age: 23,
+    };
+
+    let player_2 = Player{
+        username: "awesome123".to_string(),
+        id: 8910111,
+        age: 33
+    };
+    assert!(calculate_hash(&player_1) != calculate_hash(&player_2));
     
+    //----------------------------------------------
+
+
+
     //Testing basic I/O--------------------------------------------------
     println!("Enter two numbers to add\nnum_1 (Rust): ");
     let mut user_in_num1 = String::new(); //string variable for holding user input
@@ -53,4 +83,10 @@ fn main() {
     unsafe {
         cFoo();
     }
+}
+
+fn calculate_hash<T: Hash>(t: &T) -> u64 {
+    let mut s = DefaultHasher::new();
+    t.hash(&mut s);
+    s.finish()
 }
