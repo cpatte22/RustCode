@@ -1,7 +1,10 @@
 use std::io;
+use std::io::Read;
 use sha2::{Sha256, Digest};
 use std::hash::{DefaultHasher, Hash, Hasher};
 //use std::io::{self, Write};
+use std::net::{TcpListener, TcpStream};
+use std::thread;
 
 extern "C" {
     fn cFoo();
@@ -15,10 +18,41 @@ struct Player{
     age: i32,
 }
 
+fn handle_client(mut stream: TcpStream) 
+{
+    let mut buffer = [0; 512];
+    match stream.read(&mut buffer) {
+        Ok(_) => {
+            let received = String::from_utf8_lossy(&buffer[..]);
+            println!("Received message: {}", received);
+        }
+        Err(e) => {
+            println!("Failed to receive message: {}", e);
+        }
+    }
 
-
+}
 
 fn main() {
+
+    //Using Sockets for Computer Networking
+    //bind the TCP server to the address and port
+    let listener = TcpListener::bind("127.0.0.1:8080").expect("Could not bind to address");
+
+    println!("Server listening on 127.0.0.1:8080");
+
+    for stream in listener.incoming() {
+        match stream {
+            Ok(stream) => {
+                thread::spawn(|| {
+                    handle_client(stream);
+                });
+            }
+            Err(e) => {
+                println!("Connection failed: {}", e);
+            }
+        }
+    }
 
     //Hashing in Rust-------------------------------
     let player_1 = Player{
